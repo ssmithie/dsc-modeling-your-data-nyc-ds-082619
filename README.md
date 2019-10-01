@@ -14,7 +14,7 @@ You will be able to:
 
 ## Fitting an Initial Model
 
-Take a quick review here of how to find a linear regression model. You can also use the sci-kit learn package to do this, but you won't get as many descriptive statistics.
+Here is a quick review of building a linear regression model. You can also use the scikit-learn package to do this, but you won't get as many descriptive statistics.
 
 
 ```python
@@ -143,7 +143,7 @@ df.head()
 
 
 ```python
-#Define the Problem
+# Define the problem
 outcome = 'MPG_Highway'
 x_cols = ['Passengers', 'Length', 'Wheelbase', 'Width', 'U_Turn_Space',
           'Rear_seat', 'Luggage', 'Weight', 'Horsepower', 'Fueltank']
@@ -151,7 +151,7 @@ x_cols = ['Passengers', 'Length', 'Wheelbase', 'Width', 'U_Turn_Space',
 
 
 ```python
-#Some Brief preprocessing
+# Some brief preprocessing
 df.columns = [col.replace(' ', '_') for col in df.columns]
 for col in x_cols:
     df[col] = (df[col] - df[col].mean())/df[col].std()
@@ -276,9 +276,9 @@ from statsmodels.formula.api import ols
 
 
 ```python
-#Fitting the actual model
+# Fitting the actual model
 predictors = '+'.join(x_cols)
-formula = outcome + "~" + predictors
+formula = outcome + '~' + predictors
 model = ols(formula=formula, data=df).fit()
 model.summary()
 ```
@@ -298,10 +298,10 @@ model.summary()
   <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   24.03</td>
 </tr>
 <tr>
-  <th>Date:</th>             <td>Fri, 05 Apr 2019</td> <th>  Prob (F-statistic):</th> <td>2.02e-20</td>
+  <th>Date:</th>             <td>Mon, 30 Sep 2019</td> <th>  Prob (F-statistic):</th> <td>2.02e-20</td>
 </tr>
 <tr>
-  <th>Time:</th>                 <td>12:20:41</td>     <th>  Log-Likelihood:    </th> <td> -223.47</td>
+  <th>Time:</th>                 <td>17:09:01</td>     <th>  Log-Likelihood:    </th> <td> -223.47</td>
 </tr>
 <tr>
   <th>No. Observations:</th>      <td>    93</td>      <th>  AIC:               </th> <td>   468.9</td>
@@ -373,7 +373,7 @@ model.summary()
 
 ## Assessing the Model
  
-When performing an initial assessment of the model you might focus on a number of different perspectives. There are metrics assessing the overall accuracy of the model including $r^2$ and mean square error. There are also many metrics when analyzing how various features contribute to the overall model. These are essential to building a story and intuition behind the model so that educated business strategies can be implemented to optimize the target variable. After all, typically you aren't solely interested in predicting a quantity in a black box given said information. Rather, you would often like to know the underlying influencers and how those can be adjusted in order to increase or decrease the final measured quantity whether it be sales, customer base, costs or risk. Such metrics would include p-values associated with the various features, comparing models with features removed and investigating potential multicollinearity in the model. Multicollinearity also touches upon checking model assumptions. One underlying intuition motivating the regression model is that the features constitute a *set of levers* which, if appropriately adjusted, account for the target variable. The theory then goes that the errors should be simply the cause of noise in our measurements, or smaller unaccounted factors. These errors are then assumed to be normally distributed. 
+When performing an initial assessment of the model you might focus on a number of different perspectives. There are metrics assessing the overall accuracy of the model including $r^2$ and mean square error. There are also many metrics when analyzing how various features contribute to the overall model. These are essential to building a story and intuition behind the model so that educated business strategies can be implemented to optimize the target variable. After all, typically you aren't solely interested in predicting a quantity in a black box given said information. Rather, you would often like to know the underlying influencers and how those can be adjusted in order to increase or decrease the final measured quantity whether it be sales, customer base, costs, or risk. Such metrics would include p-values associated with the various features, comparing models with features removed and investigating potential multicollinearity in the model. Multicollinearity also touches upon checking model assumptions. One underlying intuition motivating the regression model is that the features constitute a *set of levers* which, if appropriately adjusted, account for the target variable. The theory then goes that the errors should be simply the cause of noise in our measurements, or smaller unaccounted factors. These errors are then assumed to be normally distributed. 
 
 ## Comments on P-Values
 
@@ -386,7 +386,7 @@ Based on the p-values above, you can see that there are a number of extraneous f
 outcome = 'MPG_Highway'
 x_cols = ['Passengers', 'Wheelbase', 'Weight', 'Fueltank']
 predictors = '+'.join(x_cols)
-formula = outcome + "~" + predictors
+formula = outcome + '~' + predictors
 model = ols(formula=formula, data=df).fit()
 model.summary()
 ```
@@ -406,10 +406,10 @@ model.summary()
   <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   58.19</td>
 </tr>
 <tr>
-  <th>Date:</th>             <td>Fri, 05 Apr 2019</td> <th>  Prob (F-statistic):</th> <td>6.35e-24</td>
+  <th>Date:</th>             <td>Mon, 30 Sep 2019</td> <th>  Prob (F-statistic):</th> <td>6.35e-24</td>
 </tr>
 <tr>
-  <th>Time:</th>                 <td>12:20:41</td>     <th>  Log-Likelihood:    </th> <td> -226.97</td>
+  <th>Time:</th>                 <td>17:09:02</td>     <th>  Log-Likelihood:    </th> <td> -226.97</td>
 </tr>
 <tr>
   <th>No. Observations:</th>      <td>    93</td>      <th>  AIC:               </th> <td>   463.9</td>
@@ -469,7 +469,7 @@ Now that you've made some initial refinements to the model, it's time to continu
 
 ## Checking for Multicollinearity
 
-While you've examined the bi-variable relations previously by examining pair-wise correlation between features, you haven't fully accounted for multicollinearity which is a relation of 3 or more variables. One test for this is the [variance inflation factor](https://en.wikipedia.org/wiki/Variance_inflation_factor). Typically, variables with a vif of 5 or greater (or more definitively 10 or greater) are displaying multicollinearity with other variables in the feature set. While we'll check this here, 
+While you've examined the bi-variable relations previously by examining pair-wise correlation between features, you haven't fully accounted for multicollinearity which is a relation of 3 or more variables. One test for this is the [variance inflation factor](https://en.wikipedia.org/wiki/Variance_inflation_factor). Typically, variables with a vif of 5 or greater (or more definitively 10 or greater) are displaying multicollinearity with other variables in the feature set. We we'll check this here:  
 
 
 ```python
@@ -500,7 +500,7 @@ list(zip(x_cols, vif))
 outcome = 'MPG_Highway'
 x_cols = ['Passengers', 'Wheelbase', 'Fueltank']
 predictors = '+'.join(x_cols)
-formula = outcome + "~" + predictors
+formula = outcome + '~' + predictors
 model = ols(formula=formula, data=df).fit()
 model.summary()
 ```
@@ -520,10 +520,10 @@ model.summary()
   <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   50.77</td>
 </tr>
 <tr>
-  <th>Date:</th>             <td>Fri, 05 Apr 2019</td> <th>  Prob (F-statistic):</th> <td>3.21e-19</td>
+  <th>Date:</th>             <td>Mon, 30 Sep 2019</td> <th>  Prob (F-statistic):</th> <td>3.21e-19</td>
 </tr>
 <tr>
-  <th>Time:</th>                 <td>12:23:56</td>     <th>  Log-Likelihood:    </th> <td> -240.73</td>
+  <th>Time:</th>                 <td>17:09:02</td>     <th>  Log-Likelihood:    </th> <td> -240.73</td>
 </tr>
 <tr>
   <th>No. Observations:</th>      <td>    93</td>      <th>  AIC:               </th> <td>   489.5</td>
@@ -595,7 +595,7 @@ list(zip(x_cols, vif))
 outcome = 'MPG_Highway'
 x_cols = ['Passengers', 'Wheelbase', 'Weight', 'Fueltank']
 predictors = '+'.join(x_cols)
-formula = outcome + "~" + predictors
+formula = outcome + '~' + predictors
 model = ols(formula=formula, data=df).fit()
 model.summary()
 ```
@@ -615,10 +615,10 @@ model.summary()
   <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   58.19</td>
 </tr>
 <tr>
-  <th>Date:</th>             <td>Fri, 05 Apr 2019</td> <th>  Prob (F-statistic):</th> <td>6.35e-24</td>
+  <th>Date:</th>             <td>Mon, 30 Sep 2019</td> <th>  Prob (F-statistic):</th> <td>6.35e-24</td>
 </tr>
 <tr>
-  <th>Time:</th>                 <td>12:26:27</td>     <th>  Log-Likelihood:    </th> <td> -226.97</td>
+  <th>Time:</th>                 <td>17:09:02</td>     <th>  Log-Likelihood:    </th> <td> -226.97</td>
 </tr>
 <tr>
   <th>No. Observations:</th>      <td>    93</td>      <th>  AIC:               </th> <td>   463.9</td>
@@ -704,7 +704,7 @@ plt.plot(model.predict(df[x_cols]), [0 for i in range(len(df))])
 
 
 
-    [<matplotlib.lines.Line2D at 0x1c19401a58>]
+    [<matplotlib.lines.Line2D at 0x1c238e5208>]
 
 
 
@@ -721,7 +721,7 @@ Due to the particularly large errors visible above ~37MPG, it's reasonable to re
 
 ```python
 #Finding a cutoff point
-for i in range(90,99):
+for i in range(90, 99):
     q = i / 100
     print('{} percentile: {}'.format(q, df['MPG_Highway'].quantile(q=q)))
 ```
@@ -739,12 +739,12 @@ for i in range(90,99):
 
 
 ```python
-subset = df[df['MPG_Highway']<38]
+subset = df[df['MPG_Highway'] < 38]
 print('Percent removed:',(len(df) - len(subset))/len(df))
 outcome = 'MPG_Highway'
 x_cols = ['Passengers', 'Wheelbase', 'Weight', 'Fueltank']
 predictors = '+'.join(x_cols)
-formula = outcome + "~" + predictors
+formula = outcome + '~' + predictors
 model = ols(formula=formula, data=subset).fit()
 model.summary()
 ```
@@ -767,10 +767,10 @@ model.summary()
   <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   52.42</td>
 </tr>
 <tr>
-  <th>Date:</th>             <td>Fri, 05 Apr 2019</td> <th>  Prob (F-statistic):</th> <td>5.93e-22</td>
+  <th>Date:</th>             <td>Mon, 30 Sep 2019</td> <th>  Prob (F-statistic):</th> <td>5.93e-22</td>
 </tr>
 <tr>
-  <th>Time:</th>                 <td>12:34:51</td>     <th>  Log-Likelihood:    </th> <td> -191.69</td>
+  <th>Time:</th>                 <td>17:09:02</td>     <th>  Log-Likelihood:    </th> <td> -191.69</td>
 </tr>
 <tr>
   <th>No. Observations:</th>      <td>    88</td>      <th>  AIC:               </th> <td>   393.4</td>
@@ -844,7 +844,7 @@ plt.plot(model.predict(subset[x_cols]), [0 for i in range(len(subset))])
 
 
 
-    [<matplotlib.lines.Line2D at 0x1c199f29b0>]
+    [<matplotlib.lines.Line2D at 0x1c23aec208>]
 
 
 
@@ -856,4 +856,4 @@ plt.plot(model.predict(subset[x_cols]), [0 for i in range(len(subset))])
 
 ## Summary 
 
-In this lesson, you reviewed some of the key steps towards building and evaluating a linear regression model. Next, you'll get a chance to continue on with the full-data science process yourself and attempt building a model to meet the original specs from your new boss at Lego!
+In this lesson, you reviewed some of the key steps towards building and evaluating a linear regression model. Next, you'll get a chance to continue on with the full Data Science process yourself and attempt building a model to meet the original specs from your new boss at Lego!
